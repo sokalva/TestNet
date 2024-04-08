@@ -1,0 +1,114 @@
+git --version
+
+git config --list
+
+git confit --global user.name "Alexey Sokolov"
+
+git config --global user.email a_sokolov_v@mail.ru
+
+git clone https://github.com/TryCatchLearn/Carsties.git .
+
+git log --all --oneline
+
+git log --all --oneline --decorate --graph
+
+git config --global alias.adog "log --all --decorate --oneline --graph"
+
+adog
+
+mkdir Carsties
+
+cd Carsties
+
+dotnet --info
+
+dotnet new list
+
+dotnet new sln
+
+dotnet new webapi -o src/AuctionService
+
+dotnet sln add src/AuctionService
+
+cd src\AuctionService
+
+dotnet watch
+
+NuGet Gallery
+
+Microsoft.EntityFrameworkCore.Design
+Npgsql.EntityFrameworkCore.PostgreSQL
+AutoMapper.Extensions.Microsoft.DependencyInjection
+
+cd src/AuctionService
+
+dotnet tool list -g
+dotnet tool install dotnet-ef -g
+
+dotnet tool update dotnet-ef -g
+
+dotnet ef migrations add "InitialCreate" -o Data/Migrations
+Done. To undo this action, use 'ef migrations remove'
+
+docker-compose.yml
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgrespw
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
+
+docker-compose up -d
+
+dotnet ef database update
+
+CREATE TABLE "Auctions" (
+          "Id" uuid NOT NULL,
+          "ReversPrice" integer NOT NULL,
+          "Seller" text,
+          "Winner" text,
+          "SoldAmount" integer,
+          "CurrentHighBit" integer,
+          "CreatedAt" timestamp with time zone NOT NULL,
+          "UpdatedAt" timestamp with time zone NOT NULL,
+          "AuctionEnd" timestamp with time zone NOT NULL,
+          "Status" integer NOT NULL,
+          CONSTRAINT "PK_Auctions" PRIMARY KEY ("Id")
+      );
+
+CREATE TABLE "Items" (
+          "Id" uuid NOT NULL,
+          "Make" text,
+          "Model" text,
+          "Year" integer NOT NULL,
+          "Color" text,
+          "Mileage" integer NOT NULL,
+          "ImageUrl" text,
+          "AuctionId" uuid NOT NULL,
+          CONSTRAINT "PK_Items" PRIMARY KEY ("Id"),
+          CONSTRAINT "FK_Items_Auctions_AuctionId" FOREIGN KEY ("AuctionId") REFERENCES "Auctions" ("Id") ON DELETE CASCADE
+      );
+
+
+dotnet ef database drop
+
+DROP DATABASE auctions WITH (FORCE);
+
+dotnet watch
+
+docker exec -it carsties-postgres-1 psql -U postgres
+
+\q
+
+git init
+
+dotnet new gitignore
+
+
+
+
